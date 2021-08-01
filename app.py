@@ -11,13 +11,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 tabs = ["Home", "About", "Contact"]
-if "tab" in query_params:
-    active_tab = query_params["tab"][0]
-else:
-    active_tab = "Home"
+
+active_tab = query_params.get("tab", ["Home"])[0]
 
 if active_tab not in tabs:
-    st.experimental_set_query_params(tab="Home")
     active_tab = "Home"
 
 li_items = "".join(
@@ -45,3 +42,5 @@ elif active_tab == "Contact":
     st.header("Contact")
 else:
     st.error("Something has gone terribly wrong.")
+
+st.experimental_set_query_params(tab=active_tab)
